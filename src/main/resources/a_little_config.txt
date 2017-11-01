@@ -1,0 +1,6 @@
+driverClass = com.mysql.jdbc.Driver
+jdbcUrl = jdbc:mysql://120.55.168.86:3306/blog?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull
+username = root
+password = zyy0318@:0207
+
+devMode=true
