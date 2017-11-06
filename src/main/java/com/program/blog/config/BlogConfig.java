@@ -36,7 +36,7 @@ public class BlogConfig extends JFinalConfig {
 	@Override
 	public void configRoute(Routes me) {
 		// TODO Auto-generated method stub
-		me.add("/", IndexController.class, "/pages");
+		me.add("/", IndexController.class, "/");
 	}
 
 	public static C3p0Plugin createDruidPlugin() {

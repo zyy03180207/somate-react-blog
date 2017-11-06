@@ -7,6 +7,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
+import com.mysql.jdbc.Blob;
+import com.program.blog.model.Blog;
 
 /**
  * 主页
@@ -18,10 +20,15 @@ import com.jfinal.plugin.activerecord.Record;
  */
 public class IndexController extends BaseController {
 	
+	public void index(){
+		renderJsp("index.html");
+	}
+	
 	public void blog(){
 		String method = getPara("method");
 		String data = getPara("data");
 		JSONObject jsonObject = new JSONObject();
+		JSONObject object = null;
 		switch (method) {
 		case "getArticle":
 			List<Record> blogs = Db.find("SELECT * FROM tb_article");
@@ -29,10 +36,15 @@ public class IndexController extends BaseController {
 			jsonObject.put("data", array);
 			break;
 
+		case "getArticleInfo":
+			object = JSONObject.parseObject(data);
+			Blog blog = Blog.dao.findById(object.getString("id"));
+			jsonObject.put("data",JSONObject.parse(blog.toJson()));
+			break;
 		default:
 			break;
 		}
-		System.out.println(jsonObject.toJSONString());
+		System.out.println(jsonObject);
 		renderJson(jsonObject);
 	}
 	
@@ -48,5 +60,6 @@ public class IndexController extends BaseController {
 		}
 		return array;
 	}
+	
 	
 }
